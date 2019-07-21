@@ -56,7 +56,7 @@
 # -*- coding: utf-8 -*-
 
 import scrapy
-
+import time
 
 class AuthorSpider(scrapy.Spider):
     name = 'author'
@@ -68,6 +68,7 @@ class AuthorSpider(scrapy.Spider):
 
         next_page = response.css("div.page > section.container > section > footer.paging > ul > li > a.fa-chevron-left::attr(href)").get()  
         if next_page is not None:
+            time.sleep(5)
             next_page = response.urljoin(next_page)
             yield scrapy.Request(next_page, callback=self.parse)
         # for href in response.css("div.page > section.container > footer.paging > ul > li > a::attr(href)"):
